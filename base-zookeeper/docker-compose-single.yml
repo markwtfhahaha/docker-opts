@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    privileged: true
+    user: root
+    restart: always
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    ports:
+      - '2181:2181'
+    volumes:
+      - /home/opts/zookeeper2181:/bitnami/zookeeper
+    networks:
+      - mynet
+
+networks:
+    mynet:
+      external:
+        name: selfnetwork
