@@ -1,0 +1,31 @@
+version: '2'
+services:
+
+    instance1-vsftpd:
+      image: fikipollo/vsftpd
+      container_name: instance1-vsftpd
+      environment:
+        - FTP_USER=ftpuser
+        - FTP_PASS=passwd
+        - ONLY_UPLOAD=NO
+        - PASV_ENABLE=NO
+      depends_on:
+        - instance1-vsftpd-data
+      volumes_from:
+        - instance1-vsftpd-data
+      ports:
+        - "21:21"
+      networks:
+        - mynet
+
+    instance1-vsftpd-data:
+      image: busybox
+      container_name: instance1-vsftpd-data
+      volumes:
+        - /home/opts/base-vsftpd/data:/home
+
+
+networks:
+    mynet:
+      external:
+        name: selfnetwork
