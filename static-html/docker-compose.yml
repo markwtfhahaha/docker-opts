@@ -1,0 +1,18 @@
+version: "2"
+services:
+  static-html:
+    image: nginx
+    restart: always
+    volumes:
+     - /home/www/html/:/usr/share/nginx/html
+    ports:
+     - "10001:80"
+    environment:
+     - NGINX_PORT=80
+    networks:
+      - mynet
+
+networks:
+    mynet:
+      external:
+        name: selfnetwork
