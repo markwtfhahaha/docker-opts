@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  redis:
+    image: 'docker.io/bitnami/redis:6.0-debian-10'
+    privileged: true
+    user: root
+    command: /opt/bitnami/scripts/redis/run.sh --maxmemory 10240mb
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=no
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+      - REDIS_PASSWORD=passwd
+    ports:
+      - '6379:6379'
+    volumes:
+      - /home/opts/base-Redis/data:/bitnami/redis/data
+    networks:
+      - mynet
+
+networks:
+    mynet:
+      external:
+        name: selfnetwork
+
