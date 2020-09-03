@@ -1,0 +1,77 @@
+version: '2'
+
+services:
+  zookeeper-kafka:
+    image: 'bitnami/zookeeper'
+    privileged: true
+    user: root
+    restart: always
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    ports:
+      - '2199:2181'
+    volumes:
+      - /home/opts/zookeeper2199:/bitnami/zookeeper
+    networks:
+      - mynet
+  kafka9092:
+    image: 'bitnami/kafka'
+    privileged: true
+    user: root
+    restart: always
+    ports:
+      - '9092:9092'
+    volumes:
+      - '/home/opts/kafka9092:/bitnami'
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-kafka:2181
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://172.31.32.202:9092
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false
+    depends_on:
+      - zookeeper-kafka
+    networks:
+      - mynet
+  kafka9093:
+    image: 'bitnami/kafka'
+    privileged: true
+    user: root
+    restart: always
+    ports:
+      - '9093:9092'
+    volumes:
+      - '/home/opts/kafka9093:/bitnami'
+    environment:
+      - KAFKA_BROKER_ID=2
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-kafka:2181
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://172.31.32.202:9093
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false
+    depends_on:
+      - zookeeper-kafka
+    networks:
+      - mynet
+  kafka9094:
+    image: 'bitnami/kafka'
+    privileged: true
+    user: root
+    restart: always
+    ports:
+      - '9094:9092'
+    volumes:
+      - '/home/opts/kafka9094:/bitnami'
+    environment:
+      - KAFKA_BROKER_ID=3
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-kafka:2181
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://172.31.32.202:9094
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false
+    depends_on:
+      - zookeeper-kafka
+    networks:
+      - mynet
+networks:
+    mynet:
+      external:
+        name: selfnetwork
