@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  ntp:
+    image: cturra/ntp:latest
+    container_name: ntp
+    restart: always
+    ports:
+      - 123:123/udp
+    cap_add:
+      - SYS_NICE
+      - SYS_RESOURCE
+      - SYS_TIME
+    environment:
+      - NTP_SERVERS=pool.ntp.org
+    networks:
+      - mynet
+
+networks:
+    mynet:
+      external:
+        name: selfnetwork
