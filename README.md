@@ -1,3 +1,4 @@
 # docker-opts
-docker projects compose yml
+Docker projects compose yml
+
 Default,install projects in /home/opts
