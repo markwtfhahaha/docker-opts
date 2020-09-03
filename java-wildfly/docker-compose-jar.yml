@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+    wildfly:
+      image: jboss/wildfly:10.0.0.Final
+      privileged: true
+      user: root
+      restart: always
+      command: /usr/lib/jvm/java/bin/java -Duser.dir="/data" -Duser.timezone=GMT+8 -Xms1024m -Xmx10240m -jar /data/java.war
+      environment:
+        #- HOST_IP=172.31.32.12
+        - DUBBO_IP_TO_REGISTRY=172.31.32.12
+      volumes:
+        - /home/opts/java:/data
+      ports:
+        
+        - "8060:8060"
+      networks:
+        - mynet
+networks:
+    mynet:
+      external:
+        name: selfnetwork
