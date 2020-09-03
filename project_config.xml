@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+  <projects>
+    <project>
+      <name>wartest</name> <javaname>jboss.war</javaname> <type>jboss</type> <ips>172.16.10.154,172.16.10.155</ips> <ports>8080:8080</ports> <domains>jboss.com,www.jboss.com</domains>
+    </project>
+    <project>
+      <name>jartest</name> <javaname>war.war</javaname> <type>jar</type> <ips>172.16.10.154,172.16.10.155</ips> <ports>8880:8880</ports> <domains>jartest.com,www.jartest.com</domains>
+    </project>
+    <project>
+      <name>targettest</name> <javaname>java.jar</javaname> <type>target.zip</type> <ips>172.16.10.154,172.16.10.155</ips> <ports>6007:6007,6008:6007</ports> <domains>targettest.com,www.targettest.com</domains>
+    </project>
+	<project>
+      <name>htmltest</name> <javaname>index.html</javaname> <type>html</type> <ips>172.16.10.154</ips> <ports>10002:80</ports> <domains>html.com,www.html.com</domains>
+    </project>
+  </projects>
+</config>
