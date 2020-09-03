@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  wildfly:
+    image: jboss/wildfly:10.0.0.Final
+    restart: always
+    command: /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0
+    volumes:
+      - /home/opts/jboss/standalone.conf:/opt/jboss/wildfly/bin/standalone.conf
+      - /home/opts/jboss/jboss.war:/opt/jboss/wildfly/standalone/deployments/jboss.war
+      # - /home/opts/jboss/standalone.xml:/opt/jboss/wildfly/standalone/configuration/standalone.xml
+    ports:
+      - "8080:8080"
+    environment:
+      #- HOST_IP=172.31.32.12
+      - DUBBO_IP_TO_REGISTRY=172.31.32.13 #宿主机ip,dubbo注册使用
+    networks:
+      - mynet
+
+networks:
+    mynet:
+      external:
+        name: selfnetwork
