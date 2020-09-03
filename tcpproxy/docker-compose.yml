@@ -1,0 +1,19 @@
+version: "2"
+services:
+  oracle-docker:
+    image: tecnativa/tcp-proxy
+    restart: always
+    environment:
+        LISTEN: ":8880"
+        TALK: "172.31.32.13:8880"
+        
+        TIMEOUT_TUNNEL: 3600s
+    ports:
+        - "8880:8880"
+    networks:
+        - mynet
+
+networks:
+    mynet:
+      external:
+        name: selfnetwork
