@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  mongodb:
+    image: 'bitnami/mongodb:4.2-debian-10'
+    privileged: true
+    user: root
+    restart: always
+    environment:
+      - MONGODB_ROOT_PASSWORD=passwd
+      - MONGODB_ADVERTISED_HOSTNAME=172.31.32.204
+      - MONGODB_USERNAME=result
+      - MONGODB_PASSWORD=passwd
+      - MONGODB_DATABASE=result
+    ports:
+      - '27017:27017'
+    volumes:
+      - '/home/opts/mongodb27017/data:/bitnami/mongodb/'
+      - '/home/opts/mongodb27017/logs:/opt/bitnami/mongodb/logs'
+    networks:
+      - mynet
+
+networks:
+    mynet:
+      external:
+        name: selfnetwork
