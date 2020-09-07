@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+    opts-data:
+      image: alpine
+      restart: always
+      tty: true
+      volumes:
+        - opts-data:/opts-data
+      deploy:
+        replicas: 2
+        restart_policy:
+          condition: on-failure
+      networks:
+        - mynet
+networks:
+    mynet:
+      external:
+        name: selfnetwork
+volumes:
+    opts-data:
