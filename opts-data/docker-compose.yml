@@ -19,3 +19,7 @@ networks:
         name: selfnetwork
 volumes:
     opts-data:
+      driver_opts:
+        type: "nfs"
+        o: "addr=172.16.10.153,vers=4,soft,timeo=180,bg,tcp,rw"
+        device: ":/home/opts-data"
