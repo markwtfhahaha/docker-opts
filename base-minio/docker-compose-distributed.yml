@@ -120,10 +120,13 @@ volumes:
 
 networks:
   minio_distributed:
-    driver: overlay
+    external:
+      name: selfnetwork
 
 secrets:
   secret_key:
     external: true
+    # MINIO_ACCESS_KEY: minio
   access_key:
     external: true
+    # MINIO_SECRET_KEY: minio123
