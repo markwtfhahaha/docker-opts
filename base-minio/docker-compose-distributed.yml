@@ -7,7 +7,7 @@ services:
     volumes:
       - minio1-data:/export
     ports:
-      - "9001:9000"
+      - "9002:9000"
     networks:
       - minio_distributed
     deploy:
@@ -17,7 +17,8 @@ services:
         window: 60s
       placement:
         constraints:
-          - node.labels.minio1==true
+          # - node.labels.minio1==true
+          - node.hostname == ip-172-16-10-153
     command: server http://minio{1...4}/export
     secrets:
       - secret_key
@@ -34,7 +35,7 @@ services:
     volumes:
       - minio2-data:/export
     ports:
-      - "9002:9000"
+      - "9003:9000"
     networks:
       - minio_distributed
     deploy:
@@ -44,7 +45,8 @@ services:
         window: 60s
       placement:
         constraints:
-          - node.labels.minio2==true
+          # - node.labels.minio2==true
+          - node.hostname == ip-172-16-10-154
     command: server http://minio{1...4}/export
     secrets:
       - secret_key
@@ -61,7 +63,7 @@ services:
     volumes:
       - minio3-data:/export
     ports:
-      - "9003:9000"
+      - "9004:9000"
     networks:
       - minio_distributed
     deploy:
@@ -71,7 +73,8 @@ services:
         window: 60s
       placement:
         constraints:
-          - node.labels.minio3==true
+          # - node.labels.minio3==true
+          - node.hostname == ip-172-16-10-155
     command: server http://minio{1...4}/export
     secrets:
       - secret_key
@@ -88,7 +91,7 @@ services:
     volumes:
       - minio4-data:/export
     ports:
-      - "9004:9000"
+      - "9005:9000"
     networks:
       - minio_distributed
     deploy:
@@ -98,7 +101,8 @@ services:
         window: 60s
       placement:
         constraints:
-          - node.labels.minio4==true
+          # - node.labels.minio4==true
+          - node.hostname == ip-172-16-10-155
     command: server http://minio{1...4}/export
     secrets:
       - secret_key
