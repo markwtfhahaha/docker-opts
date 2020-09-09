@@ -1,0 +1,14 @@
+#使用docker-compose单独部署,单独操作
+version: '2'
+services:
+    gfs:
+        image: gluster/gluster-centos
+        network_mode: host
+        privileged: true
+        volumes:
+            - /home/glusterfs/data:/var/lib/glusterd:rw
+            - /home/glusterfs/volume:/data:rw
+            - /home/glusterfs/logs:/var/log/glusterfs:rw
+            - /home/glusterfs/conf:/etc/glusterfs:rw
+            - /dev:/dev:rw
+            - /etc/hosts:/etc/hosts:rw
