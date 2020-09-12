@@ -6,13 +6,18 @@ services:
       container_name: instance1-vsftpd
       environment:
         - FTP_USER=ftpuser
-        - FTP_PASS=passwd
+        - FTP_PASS=pass
         - ONLY_UPLOAD=NO
         - PASV_ENABLE=NO
+      #  - PASV_ADDRESS=127.0.0.1
+      #  - PASV_MIN=21200
+      #  - PASV_MAX=21210
       depends_on:
         - instance1-vsftpd-data
-      volumes_from:
-        - instance1-vsftpd-data
+      #volumes_from:
+      #  - instance1-vsftpd-data
+      volumes:
+        - /home/opts/base-vsftpd/data:/home
       ports:
         - "21:21"
       networks:
@@ -23,6 +28,8 @@ services:
       container_name: instance1-vsftpd-data
       volumes:
         - /home/opts/base-vsftpd/data:/home
+      networks:
+        - mynet
 
 
 networks:
