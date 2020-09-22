@@ -1,8 +1,6 @@
 version: '3.7'
 
-# starts 4 docker containers running minio server instances. Each
-# minio server's web interface will be accessible on the host at port
-# 9001 through 9004.
+#glusterfs不能部署
 services:
   minio1:
     image: minio/minio
