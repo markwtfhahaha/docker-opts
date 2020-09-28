@@ -5,8 +5,8 @@ services:
       image: fikipollo/vsftpd
       container_name: instance1-vsftpd
       environment:
-        - FTP_USER=BF5.dreamgaming
-        - FTP_PASS=c4WD!4@tc*
+        - FTP_USER=ftpuser
+        - FTP_PASS=pass
         - ONLY_UPLOAD=NO
         - PASV_ENABLE=YES
         - PASV_ADDRESS=127.0.0.1
