@@ -1,0 +1,40 @@
+version: '2'
+services:
+
+    instance1-vsftpd:
+      image: fikipollo/vsftpd
+      container_name: instance1-vsftpd
+      environment:
+        - FTP_USER=BF5.dreamgaming
+        - FTP_PASS=c4WD!4@tc*
+        - ONLY_UPLOAD=NO
+        - PASV_ENABLE=YES
+        - PASV_ADDRESS=127.0.0.1
+        - PASV_MIN=21100
+        - PASV_MAX=21200
+      depends_on:
+        - instance1-vsftpd-data
+      #volumes_from:
+      #  - instance1-vsftpd-data
+      volumes:
+        - /home/opts/pingtai_ag_ftp/data:/home
+      ports:
+        - "21:21"
+        - "21100-21200:21100-21200"
+      networks:
+        - mynet
+
+    instance1-vsftpd-data:
+      image: busybox
+      container_name: instance1-vsftpd-data
+      volumes:
+        - /home/opts/pingtai_ag_ftp/data:/home
+      #ports:
+      networks:
+        - mynet
+
+
+networks:
+    mynet:
+      external:
+        name: selfnetwork
