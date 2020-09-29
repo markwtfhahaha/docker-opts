@@ -10,18 +10,18 @@ services:
     #user: root
     ports:
       - "21:21"
-      - "30000-30050:30000-30050"
+      - "40000-40050:40000-40050"
     volumes: # remember to replace /folder_on_disk/ with the path to where you want to store the files on the host machine
-      - "/home/opts/pingtai_ag_ftp/data/BF5.dreamgaming/:/home/user/"
+      - "/home/opts/pingtai_ag_ftp/data/user/:/home/user/"
       - "/home/opts/pingtai_ag_ftp/passwd:/etc/pure-ftpd/passwd"
 # uncomment for ssl/tls, see https://github.com/stilliard/docker-pure-ftpd#tls
 #      - "/folder_on_disk/ssl:/etc/ssl/private/"
     environment:
-      PUBLICHOST: "0.0.0.0"
-      FTP_USER_NAME: BF5.dreamgaming
-      FTP_USER_PASS: c4WD!4@tc*
+      PUBLICHOST: 18.166.38.61
+      FTP_USER_NAME: user
+      FTP_USER_PASS: PASS
       FTP_USER_HOME: /home/user
-      FTP_PASSIVE_PORTS: "30000:30050"
+      FTP_PASSIVE_PORTS: "40000:40050"
       FTP_MAX_CLIENTS: 50
       FTP_MAX_CONNECTIONS: 10
 # also for ssl/tls:
