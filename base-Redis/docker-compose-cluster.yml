@@ -1,0 +1,204 @@
+version: '2'
+services:
+  redis-node-0:
+    image: docker.io/bitnami/redis-cluster:6.0-debian-10
+    privileged: true
+    user: root
+    command: /opt/bitnami/scripts/redis-cluster/run.sh --maxmemory 20480mb --cluster-announce-ip 192.168.11.47
+    volumes:
+      - /home/opts/redis-cluster/redis-node-data-0:/bitnami/redis/data
+    environment:
+      - 'ALLOW_EMPTY_PASSWORD=no'
+      - 'REDIS_PORT_NUMBER=7070'
+      - 'REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL'
+      - 'REDIS_PASSWORD=pass123456'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+      #- 'REDIS_NODES=redis-node-0:7070 redis-node-1:7071 redis-node-2:7072 redis-node-3:7073 redis-node-4:7074 redis-node-5:7075'
+      #- 'REDIS_NODES=redis-node-0:7070 redis-node-1:7071 redis-node-2:7072 redis-node-3:7073 redis-node-4:7074 redis-node-5:7075'
+      #- 'REDIS_NODES=192.168.11.47:7070 192.168.11.47:7071 192.168.11.47:7072 192.168.11.47:7073 192.168.11.47:7074 192.168.11.47:7075'
+      - 'REDIS_ANNOUNCE_IP=192.168.11.47'
+      - 'REDIS_CLUSTER_ANNOUNCE_IP=192.168.11.47'
+    ports:
+      - '7070:7070'
+      - '17070:17070'
+    extra_hosts:
+        - "redis-node-0:192.168.11.47"
+        - "redis-node-1:192.168.11.47"
+        - "redis-node-2:192.168.11.47"
+        - "redis-node-3:192.168.11.47"
+        - "redis-node-4:192.168.11.47"
+        - "redis-node-5:192.168.11.47"
+    networks:
+      - mynet
+
+  redis-node-1:
+    image: docker.io/bitnami/redis-cluster:6.0-debian-10
+    privileged: true
+    user: root
+    command: /opt/bitnami/scripts/redis-cluster/run.sh --maxmemory 20480mb --cluster-announce-ip 192.168.11.47
+    volumes:
+      - /home/opts/redis-cluster/redis-node-data-1:/bitnami/redis/data
+    environment:
+      - 'ALLOW_EMPTY_PASSWORD=no'
+      - 'REDIS_PORT_NUMBER=7071'
+      - 'REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL'
+      - 'REDIS_PASSWORD=pass123456'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+      - 'REDIS_ANNOUNCE_IP=192.168.11.47'
+      - 'REDIS_CLUSTER_ANNOUNCE_IP=192.168.11.47'
+    ports:
+      - '7071:7071'
+      - '17071:17071'
+    extra_hosts:
+        - "redis-node-0:192.168.11.47"
+        - "redis-node-1:192.168.11.47"
+        - "redis-node-2:192.168.11.47"
+        - "redis-node-3:192.168.11.47"
+        - "redis-node-4:192.168.11.47"
+        - "redis-node-5:192.168.11.47"
+    networks:
+      - mynet
+
+  redis-node-2:
+    image: docker.io/bitnami/redis-cluster:6.0-debian-10
+    privileged: true
+    user: root
+    command: /opt/bitnami/scripts/redis-cluster/run.sh --maxmemory 20480mb --cluster-announce-ip 192.168.11.47
+    volumes:
+      - /home/opts/redis-cluster/redis-node-data-2:/bitnami/redis/data
+    environment:
+      - 'ALLOW_EMPTY_PASSWORD=no'
+      - 'REDIS_PORT_NUMBER=7072'
+      - 'REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL'
+      - 'REDIS_PASSWORD=pass123456'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+      - 'REDIS_ANNOUNCE_IP=192.168.11.47'
+      - 'REDIS_CLUSTER_ANNOUNCE_IP=192.168.11.47'
+    ports:
+      - '7072:7072'
+      - '17072:17072'
+    extra_hosts:
+        - "redis-node-0:192.168.11.47"
+        - "redis-node-1:192.168.11.47"
+        - "redis-node-2:192.168.11.47"
+        - "redis-node-3:192.168.11.47"
+        - "redis-node-4:192.168.11.47"
+        - "redis-node-5:192.168.11.47"
+    networks:
+      - mynet
+
+  redis-node-3:
+    image: docker.io/bitnami/redis-cluster:6.0-debian-10
+    privileged: true
+    user: root
+    command: /opt/bitnami/scripts/redis-cluster/run.sh --maxmemory 20480mb --cluster-announce-ip 192.168.11.47
+    volumes:
+      - /home/opts/redis-cluster/redis-node-data-3:/bitnami/redis/data
+    environment:
+      - 'ALLOW_EMPTY_PASSWORD=no'
+      - 'REDIS_PORT_NUMBER=7073'
+      - 'REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL'
+      - 'REDIS_PASSWORD=pass123456'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+      - 'REDIS_ANNOUNCE_IP=192.168.11.47'
+      - 'REDIS_CLUSTER_ANNOUNCE_IP=192.168.11.47'
+    ports:
+      - '7073:7073'
+      - '17073:17073'
+    extra_hosts:
+        - "redis-node-0:192.168.11.47"
+        - "redis-node-1:192.168.11.47"
+        - "redis-node-2:192.168.11.47"
+        - "redis-node-3:192.168.11.47"
+        - "redis-node-4:192.168.11.47"
+        - "redis-node-5:192.168.11.47"
+    networks:
+      - mynet
+
+  redis-node-4:
+    image: docker.io/bitnami/redis-cluster:6.0-debian-10
+    privileged: true
+    user: root
+    command: /opt/bitnami/scripts/redis-cluster/run.sh --maxmemory 20480mb --cluster-announce-ip 192.168.11.47
+    volumes:
+      - /home/opts/redis-cluster/redis-node-data-4:/bitnami/redis/data
+    environment:
+      - 'ALLOW_EMPTY_PASSWORD=no'
+      - 'REDIS_PORT_NUMBER=7074'
+      - 'REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL'
+      - 'REDIS_PASSWORD=pass123456'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+      - 'REDIS_ANNOUNCE_IP=192.168.11.47'
+      - 'REDIS_CLUSTER_ANNOUNCE_IP=192.168.11.47'
+    ports:
+      - '7074:7074'
+      - '17074:17074'
+    extra_hosts:
+        - "redis-node-0:192.168.11.47"
+        - "redis-node-1:192.168.11.47"
+        - "redis-node-2:192.168.11.47"
+        - "redis-node-3:192.168.11.47"
+        - "redis-node-4:192.168.11.47"
+        - "redis-node-5:192.168.11.47"
+    networks:
+      - mynet
+
+  redis-node-5:
+    image: docker.io/bitnami/redis-cluster:6.0-debian-10
+    privileged: true
+    user: root
+    command: /opt/bitnami/scripts/redis-cluster/run.sh --maxmemory 20480mb --cluster-announce-ip 192.168.11.47
+    volumes:
+      - /home/opts/redis-cluster/redis-node-data-5:/bitnami/redis/data
+    environment:
+      - 'ALLOW_EMPTY_PASSWORD=no'
+      - 'REDIS_PORT_NUMBER=7075'
+      - 'REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL'
+      - 'REDIS_PASSWORD=pass123456'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+      - 'REDIS_ANNOUNCE_IP=192.168.11.47'
+      - 'REDIS_CLUSTER_ANNOUNCE_IP=192.168.11.47'
+    ports:
+      - '7075:7075'
+      - '17075:17075'
+    extra_hosts:
+        - "redis-node-0:192.168.11.47"
+        - "redis-node-1:192.168.11.47"
+        - "redis-node-2:192.168.11.47"
+        - "redis-node-3:192.168.11.47"
+        - "redis-node-4:192.168.11.47"
+        - "redis-node-5:192.168.11.47"
+    networks:
+      - mynet
+
+  redis-cluster-init:
+    image: docker.io/bitnami/redis-cluster:6.0-debian-10
+    privileged: true
+    user: root
+    command: redis-cli --cluster create 192.168.11.47:7070 192.168.11.47:7071 192.168.11.47:7072 192.168.11.47:7073 192.168.11.47:7074 192.168.11.47:7075 --cluster-replicas 1 --cluster-yes -a pass123456
+    depends_on:
+      - redis-node-0
+      - redis-node-1
+      - redis-node-2
+      - redis-node-3
+      - redis-node-4
+      - redis-node-5
+    environment:
+      - 'REDISCLI_AUTH=pass123456'
+      - 'REDIS_CLUSTER_REPLICAS=1'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+      - 'REDIS_CLUSTER_ANNOUNCE_IP=192.168.11.47'
+      #- 'REDIS_CLUSTER_ANNOUNCE_PORT=7080'
+      #- 'REDIS_CLUSTER_BUS_ANNOUNCE_PORT=17080'
+      - 'REDIS_CLUSTER_DYNAMIC_IPS=no'
+      - 'REDIS_CLUSTER_CREATOR=no'
+    #ports:
+    #  - '7080:6379'
+
+    networks:
+      - mynet
+
+networks:
+    mynet:
+      external:
+        name: selfnetwork
