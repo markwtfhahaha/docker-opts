@@ -1,0 +1,51 @@
+version: '2'
+services:
+  mysql_master:
+    container_name: mysql_master
+    image: mysql:5.7
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --server-id=100 --log-bin=mysql-bin
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /home/opts/base-MySQL5.7/data:/var/lib/mysql
+      - /home/opts/base-MySQL5.7/log:/var/log/mysql
+      - /home/opts/base-MySQL5.7/etc/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - mynet
+
+networks:
+    mynet:
+      external:
+        name: selfnetwork
+
+#################################################################
+
+version: '2'
+services:
+  mysql_master:
+    container_name: mysql_slave
+    image: mysql:5.7
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --server-id=200 --log-bin=mysql-bin
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /home/opts/base-MySQL5.7/data:/var/lib/mysql
+      - /home/opts/base-MySQL5.7/log:/var/log/mysql
+      - /home/opts/base-MySQL5.7/etc/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - mynet
+
+networks:
+    mynet:
+      external:
+        name: selfnetwork
