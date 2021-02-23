@@ -7,6 +7,7 @@ services:
     user: oracle
     restart: always
     environment:
+      - TZ=Asia/Shanghai
       - ORACLE_SID=marktest
       - ORACLE_UNQNAME=marktest
       - ORACLE_HOSTNAME=oracle19c
