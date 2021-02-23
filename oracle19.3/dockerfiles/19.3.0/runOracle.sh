@@ -17,7 +17,7 @@ function moveFiles {
       mkdir -p $ORACLE_BASE/oradata/dbconfig/$ORACLE_SID/
    fi;
 
-   mv $ORACLE_HOME/dbs/spfile$ORACLE_SID.ora $ORACLE_BASE/oradata/dbconfig/$ORACLE_SID/
+   mv $ORACLE_HOME/dbs/spfile${ORACLE_SID}.ora $ORACLE_BASE/oradata/dbconfig/$ORACLE_SID/
    mv $ORACLE_HOME/dbs/orapw$ORACLE_SID $ORACLE_BASE/oradata/dbconfig/$ORACLE_SID/
    mv $ORACLE_HOME/dbs/init${ORACLE_SID}.ora $ORACLE_BASE/oradata/dbconfig/$ORACLE_SID/
    mv $ORACLE_HOME/network/admin/sqlnet.ora $ORACLE_BASE/oradata/dbconfig/$ORACLE_SID/

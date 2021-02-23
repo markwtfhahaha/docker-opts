@@ -45,8 +45,10 @@ sqlplus / as sysdba << EOF
    STARTUP;
    exit;
 EOF
-sqlplus / as sysdba << EOF
-   create pfile from spfile;
-   exit;
-EOF
 
+if [ ! -d "$ORACLE_BASE/oradata/admin/$ORACLE_SID/adump" ]; then
+  mkdir $ORACLE_BASE/oradata/admin/$ORACLE_SID/adump -p
+fi
+if [ ! -d "$ORACLE_BASE/oradata/fast_recovery_area" ]; then
+  mkdir $ORACLE_BASE/oradata/fast_recovery_area -p
+fi

@@ -102,10 +102,16 @@ sqlplus / as sysdba << EOF
    ALTER SYSTEM SET control_files='$ORACLE_BASE/oradata/$ORACLE_SID/control01.ctl' scope=spfile;
    ALTER SYSTEM SET local_listener='';
    EXEC DBMS_XDB_CONFIG.SETGLOBALPORTENABLED (TRUE);
-   create pfile from spfile;
    exit;
 EOF
    #ALTER PLUGGABLE DATABASE $ORACLE_PDB SAVE STATE;
 
 # Remove temporary response file
 mv $ORACLE_BASE/dbca.rsp $ORACLE_BASE/dbca.rsp.bak
+
+if [ ! -d "$ORACLE_BASE/oradata/admin/$ORACLE_SID/adump" ]; then
+  mkdir $ORACLE_BASE/oradata/admin/$ORACLE_SID/adump -p
+fi
+if [ ! -d "$ORACLE_BASE/oradata/fast_recovery_area" ]; then
+  mkdir $ORACLE_BASE/oradata/fast_recovery_area -p
+fi

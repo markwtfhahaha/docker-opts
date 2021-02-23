@@ -35,7 +35,7 @@ LABEL "provider"="Oracle"                                               \
       "port.oemexpress"="5500"
 
 # Argument to control removal of components not needed after db software installation
-ARG SLIMMING=true
+ARG SLIMMING=false
 
 # Environment variables required for this build (do NOT change)
 # -------------------------------------------------------------
