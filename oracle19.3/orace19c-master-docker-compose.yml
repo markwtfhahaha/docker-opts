@@ -13,8 +13,8 @@ services:
     environment:
       - ORACLE_HOSTNAME=oracle19c-master
       - TZ=Asia/Shanghai
-      - ORACLE_SID=oracle19cdb
-      - ORACLE_UNQNAME=oracle19cdb
+      - ORACLE_SID=ora19c
+      - ORACLE_UNQNAME=ora19c
       - ORACLE_PWD=O4bkVHCHI0Wb8h2H
       - ORACLE_MEM=5000
       - INIT_SGA_SIZE=40960 #40G,这里只是建库的初始值,后期可以在数据库重新设置
