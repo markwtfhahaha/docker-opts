@@ -13,6 +13,7 @@ cd  dockerfiles
 #生成镜像: oracle/database:19.3.0-ee-patch
 cd applypatch-19.3
 ./buildPatchedDockerImage.sh -v 19.3.0 -e -p patch
+#打完补丁后可以把docker-compose文件里面的镜像改成新的，如果已经初始化建库，建议删掉，重建，这样新建的库不会有一些版本问题
 ```
 
 ### 可以手动开启归档,闪回，设置SAG,PGA，以及db_recovery_file;自动清理归档脚本自动添加好，可以手动验证下
