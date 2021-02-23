@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+  oracle19c:
+    image: 'oracle/database:19.3.0-ee-patch'
+    privileged: true
+    user: oracle
+    restart: always
+    hostname: oracle19c-master-rac
+    extra_hosts:
+      - "oracle19c-master:10.10.10.121"
+      - "oracle19c-slave:10.10.10.121"
+    environment:
+      - ORACLE_HOSTNAME=oracle19c-master
+      - TZ=Asia/Shanghai
+      - ORACLE_SID=oracle19cdb
+      - ORACLE_UNQNAME=oracle19cdb
+      - ORACLE_PWD=O4bkVHCHI0Wb8h2H
+      - ORACLE_MEM=5000
+      - INIT_SGA_SIZE=40960 #40G,这里只是建库的初始值,后期可以在数据库重新设置
+      - INIT_PGA_SIZE=10240 #10G,这里只是建库的初始值,后期可以在数据库重新设置
+      - ORACLE_EDITION=19.3.0
+      - ORACLE_CHARACTERSET=AL32UTF8
+    ports:
+      - '1521:1521'
+      - '5500:5500'
+    volumes:
+      - '/home/opts/oracle19c-master/data:/opt/oracle/oradata'
+      - '/home/opts/oracle19c-master/scripts/:/opt/oracle/scripts/'
+      - '/home/opts/oracle19c-master/exp_dir:/home/oracle/exp_dir'
+      - '/etc/localtime:/etc/localtime'
+      
+    networks:
+      - mynet
+
+networks:
+    mynet:
+      external:
+        name: selfnetwork

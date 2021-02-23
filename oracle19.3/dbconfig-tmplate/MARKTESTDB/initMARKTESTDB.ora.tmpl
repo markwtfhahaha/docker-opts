@@ -1,0 +1,45 @@
+MARKTEST.__data_transfer_cache_size=0
+MARKTEST.__db_cache_size=37312528384
+MARKTEST.__inmemory_ext_roarea=0
+MARKTEST.__inmemory_ext_rwarea=0
+MARKTEST.__java_pool_size=0
+MARKTEST.__large_pool_size=671088640
+MARKTEST.__oracle_base='/opt/oracle'#ORACLE_BASE set from environment
+MARKTEST.__pga_aggregate_target=10737418240
+MARKTEST.__sga_target=42949672960
+MARKTEST.__shared_io_pool_size=134217728
+MARKTEST.__shared_pool_size=4697620480
+MARKTEST.__streams_pool_size=0
+MARKTEST.__unified_pga_pool_size=0
+*.audit_file_dest='/opt/oracle/admin/MARKTEST/adump'
+*.audit_sys_operations=false
+*.audit_trail='none'
+*.compatible='19.0.0'
+*.control_files='/opt/oracle/oradata/MARKTEST/control01.ctl'
+*.db_block_size=8192
+*.db_name='MARKTEST'
+*.db_unique_name='marktestdb'
+*.db_recovery_file_dest_size=107374182400
+*.db_recovery_file_dest='/opt/oracle/oradata/fast_recovery_area'
+*.diagnostic_dest='/opt/oracle'
+*.disk_asynch_io=TRUE
+*.dispatchers='(PROTOCOL=TCP) (SERVICE=MARKTESTXDB)'
+*.fal_client='MARKTESTDB'
+*.fal_server='MARKTEST'
+*.filesystemio_options='SETALL'
+*.local_listener=''
+*.log_archive_config='dg_config=(marktest,marktestdb)'
+*.log_archive_dest_1='LOCATION=USE_DB_RECOVERY_FILE_DEST  VALID_FOR=(ALL_LOGFILES,ALL_ROLES)  DB_UNIQUE_NAME=marktestdb'
+*.log_archive_dest_2='SERVICE=marktestdb LGWR SYNC  VALID_FOR=(ONLINE_LOGFILES,PRIMARY_ROLE)  DB_UNIQUE_NAME=marktest'
+*.log_archive_dest_state_1='ENABLE'
+*.log_archive_dest_state_2='ENABLE'
+*.log_archive_max_processes=30
+*.nls_language='AMERICAN'
+*.nls_territory='AMERICA'
+*.open_cursors=300
+*.pga_aggregate_target=10240m
+*.processes=6400
+*.remote_login_passwordfile='EXCLUSIVE'
+*.sga_target=40960m
+*.standby_file_management='AUTO'
+*.undo_tablespace='UNDOTBS1'
