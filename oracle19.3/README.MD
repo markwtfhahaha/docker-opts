@@ -17,7 +17,7 @@ select description, status from DBA_REGISTRY_SQLPATCH;
 #打完补丁后可以把docker-compose文件里面的镜像改成新的，如果已经初始化建库，建议删掉，重建，这样新建的库不会有一些版本问题
 ```
 
-### 可以手动开启归档,闪回，设置SAG,PGA，以及db_recovery_file;自动清理归档脚本自动添加好，可以手动验证下
+### 可以手动开启归档,闪回，设置SAG,PGA，以及db_recovery_file;自动清理归档脚本已经自动添加好，可以手动验证下
 ```
 shutdown immediate;
 startup mount;
@@ -67,7 +67,7 @@ drop user ora19c cascade; #删除用户及数据
 ```
 ### 一主一从配置,做完以上操作即可完成单实例部署，其他参数可以自行定义
 ```
-1. 启动两个数据库
+1. 启动主数据库
 注意: 删除备库上面的库
 dbca -silent -deleteDatabase -sourcedb ora19cdb
 
@@ -95,15 +95,15 @@ alter database add standby logfile thread 1 group 23 ('/opt/oracle/oradata/ORA19
 alter database add standby logfile thread 1 group 24 ('/opt/oracle/oradata/ORA19C/standbyredo24.log') size 2000M;
 alter database add standby logfile thread 1 group 25 ('/opt/oracle/oradata/ORA19C/standbyredo25.log') size 2000M;
 
-4. 主库应用pfile配置文件
+4. 主库应用pfile配置文件创建spfile
 shutdown immediate;
 exit;
 create spfile='/opt/oracle/oradata/dbconfig/ORA19C/spfileORA19C.ora' from pfile;
 startup;
 
-5.备库应用pfile配置文件
-shutdown immediate;
-exit;
+5.备库应用pfile配置文件创建spfile
+mkdir /opt/oracle/oradata/admin/ORA19C/adump -p
+
 create spfile='/opt/oracle/oradata/dbconfig/ORA19CDB/spfileORA19CDB.ora' from pfile;
 startup nomount;
 
@@ -124,7 +124,8 @@ alter database recover managed standby database disconnect nodelay;
 
 select SEQUENCE#,FIRST_TIME,NEXT_TIME ,APPLIED from v$archived_log order by 1;
 
-9. 设置主从模式
-
+9. 查询状态
+select SEQUENCE#,FIRST_TIME,NEXT_TIME ,APPLIED from v$archived_log order by 1;
+select database_role,db_unique_name,open_mode,protection_mode,protection_level,switchover_status from v$database; 
 ```
 

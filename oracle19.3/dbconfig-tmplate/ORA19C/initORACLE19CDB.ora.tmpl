@@ -29,7 +29,7 @@ ORA19C.__unified_pga_pool_size=0
 *.local_listener=''
 *.log_archive_config='dg_config=(ora19c,ora19cdb)'
 *.log_archive_dest_1='LOCATION=USE_DB_RECOVERY_FILE_DEST  VALID_FOR=(ALL_LOGFILES,ALL_ROLES)  DB_UNIQUE_NAME=ora19c'
-*.log_archive_dest_2='SERVICE=ora19c LGWR SYNC  VALID_FOR=(ONLINE_LOGFILES,PRIMARY_ROLE)  DB_UNIQUE_NAME=ora19cdb'
+*.log_archive_dest_2='SERVICE=ora19cdb LGWR SYNC  VALID_FOR=(ONLINE_LOGFILES,PRIMARY_ROLE)  DB_UNIQUE_NAME=ora19cdb'
 *.log_archive_dest_state_1='ENABLE'
 *.log_archive_dest_state_2='ENABLE'
 *.log_archive_max_processes=30
