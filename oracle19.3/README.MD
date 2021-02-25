@@ -128,3 +128,7 @@ select SEQUENCE#,FIRST_TIME,NEXT_TIME ,APPLIED from v$archived_log order by 1;
 select database_role,db_unique_name,open_mode,protection_mode,protection_level,switchover_status from v$database; 
 ```
 
+### 注意!!!!
+```
+重启集群时，务必先shutdown immediate 关闭，然后重建docker容器
+```
