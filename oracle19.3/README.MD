@@ -1,7 +1,7 @@
 ### 宿主机创建数据目录添加权限，以便容器能够正常创建文件和目录
 ```
 chown 54321:54322 data/ && chown 54321:54321 exp_dir/
-scripts目录可以不加权限
+scripts目录可以不加权限,把相关脚本放进去
 ```
 
 ### 生成镜像命令和打补丁命令,提前把19c安装包和补丁包放置到对应目录
@@ -122,7 +122,6 @@ alter database recover managed standby database cancel;
 alter database open read only;
 alter database recover managed standby database disconnect nodelay;
 
-select SEQUENCE#,FIRST_TIME,NEXT_TIME ,APPLIED from v$archived_log order by 1;
 
 9. 查询状态
 select SEQUENCE#,FIRST_TIME,NEXT_TIME ,APPLIED from v$archived_log order by 1;
