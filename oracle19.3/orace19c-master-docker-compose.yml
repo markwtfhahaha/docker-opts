@@ -2,7 +2,7 @@ version: '2'
 
 services:
   oracle19c:
-    image: 'docker-harbor.clubs999.com/public/oracle/database:19.3.0-ee-patch'
+    image: 'docker-harbor.clubs999.com/public/oracle/database:19.3.0-ee-patch-v1'
     privileged: true
     user: oracle
     restart: always
