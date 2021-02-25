@@ -130,5 +130,6 @@ select database_role,db_unique_name,open_mode,protection_mode,protection_level,s
 
 ### 注意!!!!
 ```
-重启集群时，务必先shutdown immediate 关闭，然后重建docker容器
+1. 重启集群时，务必先shutdown immediate 关闭，然后重建docker容器
+2. 
 ```
