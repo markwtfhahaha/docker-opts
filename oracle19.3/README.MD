@@ -136,4 +136,5 @@ select database_role,db_unique_name,open_mode,protection_mode,protection_level,s
 2. 建议实例名库名都不要改变，若要在同一台服务器新建新的实例，直接新建容器，修改映射端口既可，这样主从部署极为简单，不必修改过多配置文件，只需要修改tns配置即可
 3. create spfile='/opt/oracle/oradata/dbconfig/ORA19C/spfileORA19C.ora' from pfile; 生成spfile请务必使用这个命令，指定spfile路径，避免spfile软链被覆盖掉
 4. 安装目录默认为/opt/oracle,但是镜像建立了软链 所以也可以使用 /home/u01/app/oracle 来进行维护，跟以前的习惯一样
+5. in-memory特性可以单独开启服务器的相关系统参数，然后再配置
 ```
