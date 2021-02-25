@@ -4,8 +4,10 @@ chown 54321:54322 data/ && chown 54321:54321 exp_dir/
 scripts目录可以不加权限,把相关脚本放进去
 ```
 
-### 生成镜像命令和打补丁命令,提前把19c安装包和补丁包放置到对应目录
+### 生成镜像命令和打补丁命令,提前把19c安装包和补丁包放置到对应目录,镜像已经提前打包到我们私有仓库
 ```
+已经打包好的镜像为docker-harbor.clubs999.com/public/oracle/database:19.3.0-ee-patch-v1, 可以直接使用，不必重新打包
+
 #生成镜像: oracle/database:19.3.0-ee
 cd  dockerfiles
 ./buildContainerImage.sh  -v 19.3.0 -e
