@@ -130,6 +130,7 @@ select database_role,db_unique_name,open_mode,protection_mode,protection_level,s
 
 ### 注意!!!!
 ```
-1. 重启集群时，务必先shutdown immediate 关闭，然后重建docker容器
-2. 
+1. 重启集群时，务必先shutdown immediate 关闭，然后重建docker容器，顺序为先主后从
+2. 建议实例名库名都不要改变，若要在同一台服务器新建新的实例，直接新建容器，修改映射端口既可，这样主从部署极为简单，不必修改过多配置文件，只需要修改tns配置即可
+3. create spfile='/opt/oracle/oradata/dbconfig/ORA19C/spfileORA19C.ora' from pfile; 生成spfile请务必使用这个命令，指定spfile路径，避免spfile软链被覆盖掉
 ```
