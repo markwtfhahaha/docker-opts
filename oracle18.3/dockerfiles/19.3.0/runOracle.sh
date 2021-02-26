@@ -34,7 +34,7 @@ function moveFiles {
 ########### Symbolic link DB files ############
 function symLinkFiles {
 
-   if [ ! -L $ORACLE_HOME/dbs/spfile${ORACLE_SID}.ora ]; then
+   if [ ! -L $ORACLE_HOME/dbs/spfile$ORACLE_SID.ora ]; then
       ln -s $ORACLE_BASE/oradata/dbconfig/$ORACLE_SID/spfile$ORACLE_SID.ora $ORACLE_HOME/dbs/spfile$ORACLE_SID.ora
    fi;
    

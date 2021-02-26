@@ -1,0 +1,37 @@
+version: '2'
+
+services:
+  oracle18c:
+    image: 'oracle/database:18.3.0-ee'
+    privileged: true
+    user: oracle
+    restart: always
+    hostname: oracle18c-slave-rac
+    extra_hosts:
+      - "oracle18c-master:10.10.10.121"
+      - "oracle18c-slave:10.10.10.121"
+    environment:
+      - ORACLE_HOSTNAME=oracle18c-slave
+      - TZ=Asia/Shanghai
+      - ORACLE_SID=ora18cdb
+      - ORACLE_UNQNAME=ora18cdb
+      - ORACLE_PWD=O4bkVHCHI0Wb8h2H
+      - ORACLE_MEM=5000
+      - ORACLE_EDITION=18.3.0
+      - ORACLE_CHARACTERSET=AL32UTF8
+    ports:
+      - '1522:1521'
+      - '5501:5500'
+    volumes:
+      - '/home/opts/oracle18c-slave/data:/opt/oracle/oradata'
+      - '/home/opts/oracle18c-slave/scripts/:/opt/oracle/scripts/'
+      - '/home/opts/oracle18c-slave/exp_dir:/home/oracle/exp_dir'
+      - '/etc/localtime:/etc/localtime'
+      
+    networks:
+      - mynet
+
+networks:
+    mynet:
+      external:
+        name: selfnetwork

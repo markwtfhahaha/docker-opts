@@ -10,8 +10,8 @@ services:
     environment:
       - ORACLE_HOSTNAME=oracle19c
       - TZ=Asia/Shanghai
-      - ORACLE_SID=oracle19cdb
-      - ORACLE_UNQNAME=oracle19cdb
+      - ORACLE_SID=ora19c
+      - ORACLE_UNQNAME=ora19c
       - ORACLE_PWD=O4bkVHCHI0Wb8h2H
       - ORACLE_MEM=5000
       - INIT_SGA_SIZE=40960 #40G,这里只是建库的初始值,后期可以在数据库重新设置
@@ -22,9 +22,9 @@ services:
       - '1521:1521'
       - '5500:5500'
     volumes:
-      - '/home/opts/oracle19c-master/data:/opt/oracle/oradata'
-      - '/home/opts/oracle19c-master/scripts/:/opt/oracle/scripts/'
-      - '/home/opts/oracle19c-master/exp_dir:/home/oracle/exp_dir'
+      - '/home/opts/oracle19c-single/data:/opt/oracle/oradata'
+      - '/home/opts/oracle19c-single/scripts/:/opt/oracle/scripts/'
+      - '/home/opts/oracle19c-single/exp_dir:/home/oracle/exp_dir'
       - '/etc/localtime:/etc/localtime'
       
     networks:
