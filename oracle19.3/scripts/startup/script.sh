@@ -1,5 +1,6 @@
 #!/bin/bash
 
+###添加计划任务
 mkdir /home/oracle/sh/ -p
 
 cat >> /home/oracle/sh/${ORACLE_SID}_archive_del.sh << EOF 
@@ -53,3 +54,32 @@ rm cron.txt -f
 mkdir /home/oracle/sh/log/
 touch /home/oracle/sh/log/${ORACLE_SID}_archive_del.log
 chmod +x /home/oracle/sh/${ORACLE_SID}_archive_del.sh
+
+sudo crond #启动计划任务
+
+
+###开启自动收集统计信息
+sqlplus / as sysdba << EOF
+    exec DBMS_AUTO_TASK_ADMIN.ENABLE();
+    exec DBMS_AUTO_TASK_ADMIN.ENABLE(client_name => 'auto optimizer stats collection',operation =>'auto optimizer stats job',window_name=> null);
+    exec DBMS_AUTO_TASK_ADMIN.ENABLE(client_name => 'auto optimizer stats collection',operation => NULL,window_name => NULL);
+    exit;
+EOF
+
+###创建login.sql
+cat >> /home/u01/app/oracle/product/19c/dbhome_1/sqlplus/admin/glogin.sql << EOF 
+define _editor=vi
+set serveroutput on size 1000000
+set trimspool on
+set long  5000
+set linesize  1000
+set pagesize  9999
+column plan_plus_exp format a80
+set sqlprompt '&_user.@&_connect_identifier.>'
+EOF
+
+###密码不过期
+sqlplus / as sysdba << EOF
+    ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
+    exit;
+EOF

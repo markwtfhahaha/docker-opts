@@ -34,6 +34,9 @@ LABEL "provider"="Oracle"                                               \
       "port.listener"="1521"                                            \
       "port.oemexpress"="5500"
 
+# Argument to control removal of components not needed after db software installation
+# ARG SLIMMING=false
+
 # Environment variables required for this build (do NOT change)
 # -------------------------------------------------------------
 ENV ORACLE_BASE=/opt/oracle \
@@ -42,6 +45,7 @@ ENV ORACLE_BASE=/opt/oracle \
     INSTALL_FILE_1="LINUX.X64_180000_db_home.zip" \
     INSTALL_RSP="db_inst.rsp" \
     CONFIG_RSP="dbca.rsp.tmpl" \
+    ORACLE_BASH_PROFILE=".bash_profile.tmpl"\
     PWD_FILE="setPassword.sh" \
     RUN_FILE="runOracle.sh" \
     START_FILE="startDB.sh" \
@@ -60,7 +64,7 @@ ENV PATH=$ORACLE_HOME/bin:$ORACLE_HOME/OPatch/:/usr/sbin:$PATH \
 # Copy files needed during both installation and runtime
 # -------------
 COPY $SETUP_LINUX_FILE $CHECK_SPACE_FILE $INSTALL_DIR/
-COPY $RUN_FILE $START_FILE $CREATE_DB_FILE $CONFIG_RSP $PWD_FILE $CHECK_DB_FILE $USER_SCRIPTS_FILE $ORACLE_BASE/
+COPY $RUN_FILE $START_FILE $CREATE_DB_FILE $CONFIG_RSP $ORACLE_BASH_PROFILE $PWD_FILE $CHECK_DB_FILE $USER_SCRIPTS_FILE $ORACLE_BASE/
 
 RUN chmod ug+x $INSTALL_DIR/*.sh && \
     sync && \
@@ -81,7 +85,7 @@ FROM base AS builder
 ARG DB_EDITION
 
 # Install unzip for unzip operation
-RUN yum -y install unzip
+RUN yum -y install unzip 
 
 # Copy DB install file
 COPY --chown=oracle:dba $INSTALL_FILE_1 $INSTALL_RSP $INSTALL_DB_BINARIES_FILE $INSTALL_DIR/
@@ -109,8 +113,20 @@ USER root
 RUN $ORACLE_BASE/oraInventory/orainstRoot.sh && \
     $ORACLE_HOME/root.sh
 
+USER root
+RUN ["sh","-c","echo 'oracle ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"]
+
+USER root
+RUN ["sh", "-c", "mkdir /home/u01/app/ -p"]
+
+USER root
+RUN ["sh", "-c", "chown oracle:oinstall /home/u01/ -R"]
+
 USER oracle
 WORKDIR /home/oracle
+
+USER oracle
+RUN ["sh", "-c", "ln -s /opt/oracle/ /home/u01/app/oracle"]
 
 HEALTHCHECK --interval=1m --start-period=5m \
    CMD "$ORACLE_BASE/$CHECK_DB_FILE" >/dev/null || exit 1

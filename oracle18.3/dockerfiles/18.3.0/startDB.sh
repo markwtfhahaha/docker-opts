@@ -11,6 +11,25 @@
 # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 # 
 
+
+# Check whether ORACLE_SID is passed on
+export ORACLE_SID=${1:-ORCLCDB}
+
+# Check whether ORACLE_PDB is passed on
+#export ORACLE_PDB=${2:-ORCLPDB1}
+export ORACLE_UNQNAME=${2:-ORCLPDB}
+
+#
+export ORACLE_HOSTNAME=${4:-oracle18c}
+
+
+# Replace oracle .bash_profile
+mv /home/oracle/.bash_profile /home/oracle/.bash_profile.bak
+cp $ORACLE_BASE/$ORACLE_BASH_PROFILE /home/oracle/.bash_profile
+sed -i -e "s|###ORACLE_SID###|$ORACLE_SID|g" /home/oracle/.bash_profile
+sed -i -e "s|###ORACLE_UNQNAME###|$ORACLE_UNQNAME|g" /home/oracle/.bash_profile
+sed -i -e "s|###ORACLE_HOSTNAME###|$ORACLE_HOSTNAME|g" /home/oracle/.bash_profile
+
 # Check that ORACLE_HOME is set
 if [ "$ORACLE_HOME" == "" ]; then
   script_name=`basename "$0"`
@@ -26,3 +45,10 @@ sqlplus / as sysdba << EOF
    STARTUP;
    exit;
 EOF
+
+if [ ! -d "$ORACLE_BASE/oradata/admin/$ORACLE_SID/adump" ]; then
+  mkdir $ORACLE_BASE/oradata/admin/$ORACLE_SID/adump -p
+fi
+if [ ! -d "$ORACLE_BASE/oradata/fast_recovery_area" ]; then
+  mkdir $ORACLE_BASE/oradata/fast_recovery_area -p
+fi

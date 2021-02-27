@@ -19,7 +19,8 @@ set -e
 export ORACLE_SID=${1:-ORCLCDB}
 
 # Check whether ORACLE_PDB is passed on
-export ORACLE_PDB=${2:-ORCLPDB1}
+#export ORACLE_PDB=${2:-ORCLPDB1}
+export ORACLE_UNQNAME=${2:-ORCLPDB}
 
 # Auto generate ORACLE PWD if not passed on
 export ORACLE_PWD=${3:-"`openssl rand -base64 8`1"}
@@ -28,9 +29,16 @@ echo "ORACLE PASSWORD FOR SYS, SYSTEM AND PDBADMIN: $ORACLE_PWD";
 # Replace place holders in response file
 cp $ORACLE_BASE/$CONFIG_RSP $ORACLE_BASE/dbca.rsp
 sed -i -e "s|###ORACLE_SID###|$ORACLE_SID|g" $ORACLE_BASE/dbca.rsp
-sed -i -e "s|###ORACLE_PDB###|$ORACLE_PDB|g" $ORACLE_BASE/dbca.rsp
+#sed -i -e "s|###ORACLE_PDB###|$ORACLE_PDB|g" $ORACLE_BASE/dbca.rsp
 sed -i -e "s|###ORACLE_PWD###|$ORACLE_PWD|g" $ORACLE_BASE/dbca.rsp
 sed -i -e "s|###ORACLE_CHARACTERSET###|$ORACLE_CHARACTERSET|g" $ORACLE_BASE/dbca.rsp
+
+# Replace oracle .bash_profile
+mv /home/oracle/.bash_profile /home/oracle/.bash_profile.bak
+cp $ORACLE_BASE/$ORACLE_BASH_PROFILE /home/oracle/.bash_profile
+sed -i -e "s|###ORACLE_SID###|$ORACLE_SID|g" /home/oracle/.bash_profile
+sed -i -e "s|###ORACLE_UNQNAME###|$ORACLE_UNQNAME|g" /home/oracle/.bash_profile
+sed -i -e "s|###ORACLE_HOSTNAME###|$ORACLE_HOSTNAME|g" /home/oracle/.bash_profile
 
 # If there is greater than 8 CPUs default back to dbca memory calculations
 # dbca will automatically pick 40% of available memory for Oracle DB
@@ -84,4 +92,12 @@ sqlplus / as sysdba << EOF
 EOF
 
 # Remove temporary response file
-rm $ORACLE_BASE/dbca.rsp
+mv $ORACLE_BASE/dbca.rsp $ORACLE_BASE/dbca.rsp.bak
+
+if [ ! -d "$ORACLE_BASE/oradata/admin/$ORACLE_SID/adump" ]; then
+  mkdir $ORACLE_BASE/oradata/admin/$ORACLE_SID/adump -p
+fi
+if [ ! -d "$ORACLE_BASE/oradata/fast_recovery_area" ]; then
+  mkdir $ORACLE_BASE/oradata/fast_recovery_area -p
+fi
+

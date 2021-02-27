@@ -113,6 +113,9 @@ RUN $ORACLE_BASE/oraInventory/orainstRoot.sh && \
     $ORACLE_HOME/root.sh
 
 USER root
+RUN ["sh","-c","echo 'oracle ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"]
+
+USER root
 RUN ["sh", "-c", "mkdir /home/u01/app/ -p"]
 
 USER root
