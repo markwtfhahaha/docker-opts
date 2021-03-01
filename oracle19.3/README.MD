@@ -105,6 +105,8 @@ startup;
 
 5.备库应用pfile配置文件创建spfile
 mkdir /opt/oracle/oradata/admin/ORA19C/adump -p
+cd /home/u01/app/oracle/product/19c/dbhome_1/dbs
+ln -s /opt/oracle/oradata/dbconfig/ORA19CDB/spfileORA19CDB.ora spfileORA19CDB.ora
 
 create spfile='/opt/oracle/oradata/dbconfig/ORA19CDB/spfileORA19CDB.ora' from pfile;
 startup nomount;

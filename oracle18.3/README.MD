@@ -101,6 +101,8 @@ startup;
 
 5.备库应用pfile配置文件创建spfile
 mkdir /opt/oracle/oradata/admin/ORA18C/adump -p
+cd /home/u01/app/oracle/product/18c/dbhome_1/dbs
+ln -s /opt/oracle/oradata/dbconfig/ORA18CDB/spfileORA18CDB.ora spfileORA18CDB.ora
 
 create spfile='/opt/oracle/oradata/dbconfig/ORA18CDB/spfileORA18CDB.ora' from pfile;
 startup nomount;
@@ -123,7 +125,7 @@ alter database recover managed standby database disconnect nodelay;
 
 9. 查询状态
 select SEQUENCE#,FIRST_TIME,NEXT_TIME ,APPLIED from v$archived_log order by 1;
-select database_role,db_unique_name,open_mode,protection_mode,protection_level,switchover_status from v$database; 
+select database_role,db_unique_name,open_mode,protection_mode,protection_level,switchover_status from v$database;
 ```
 
 ### 注意!!!!
