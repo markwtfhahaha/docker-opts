@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  rancher:
+    image: rancher/rancher:latest
+    privileged: true
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - /home/opts/rancher/data:/var/lib
+      - /home/opts/rancher/log:/var/log
+    networks:
+      - mynet
+
+networks:
+    mynet:
+      external:
+        name: selfnetwork
+
