@@ -11,7 +11,9 @@ services:
       - '80:80'
       - '443:443'
     volumes:
-      - /home/opts/rancher/data:/var/lib
+      - /home/opts/rancher/data/rancher:/var/lib/rancher
+      - /home/opts/rancher/data/kubelet:/var/lib/kubelet
+      - /home/opts/rancher/data/cni:/var/lib/cni
       - /home/opts/rancher/log:/var/log
     networks:
       - mynet
